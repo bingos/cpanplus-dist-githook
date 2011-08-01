@@ -59,3 +59,58 @@ sub uninstall {
 }
 
 q[And now here is Hooky and the boys];
+
+=pod
+
+=head1 SYNOPSIS
+
+  # CPANPLUS configuration
+
+  cpanp> s conf dist_type CPANPLUS::Dist::GitHook
+
+  cpanp> s save
+
+  # Git::CPAN::Hook configuration
+
+  # put your local::lib under Git control
+  $ perl -MGit::CPAN::Hook -e init ~/perl5
+
+  # Use cpanp/CPANPLUS normally.
+
+  # or use cpan2dist
+
+  $ cpan2dist --format CPANPLUS::Dist::GitHook --install Some::Funky::Module
+
+=head1 DESCRIPTION
+
+CPANPLUS::Dist::GitHook integrates Philippe Bruhat's L<Git::CPAN::Hook> module into L<CPANPLUS>.
+
+Commits are made after any C<install> or C<uninstall> that L<CPANPLUS> undertakes.
+
+=head1 METHODS
+
+The following methods are provided. They are not meant to be called directly by the user.
+
+=over
+
+=item C<install>
+
+Called to install a distribution. This will in turn call the parent install method, check the
+return status and call L<Git::CPAN::Hook>'s C<commit> method.
+
+=item C<uninstall>
+
+Called to uninstall a distribution. This will in turn call the parent uninstall method, check the
+return status and call L<Git::CPAN::Hook>'s C<commit> method.
+
+=back
+
+=head1 SEE ALSO
+
+L<CPANPLUS>
+
+L<Git::CPAN::Hook>
+
+L<cpan2dist>
+
+=cut
